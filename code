@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n, m, mat[101][100001], var, num, cnt, i, j, k, p, maj, secv, secvmax, x;
+
+int main()
+{
+    ifstream cin("livada.in");
+    ofstream cout("livada.out");
+
+    cin >> n >> m >> p;
+
+    for(i = 1; i <= n; i ++)
+    {
+        for(j = 1; j <= m; j ++)
+        {
+            cin >> mat[i][j];
+        }
+    }
+
+    for(i = 1; i <= n; i ++)
+    {
+        num = mat[i][1];
+        var = mat[i][1];
+        cnt = 1;
+        secv = 1;
+
+        for(j = 2; j <= m; j ++)
+        {
+            if(num == mat[i][j])
+            {
+                secv ++;
+            }
+            else
+            {
+                if(secv > secvmax)
+                {
+                    secvmax = secv;
+                }
+
+                secv = 1;
+                num = mat[i][j];
+            }
+
+            if(var == mat[i][j])
+            {
+                cnt ++;
+            }
+            else
+            {
+                cnt --;
+            }
+
+            if(cnt == 0)
+            {
+                var = mat[i][j];
+                cnt = 1;
+            }
+        }
+
+        j --;
+        cnt = 0;
+
+        for(k = 1; k <= m; k ++)
+        {
+            if(mat[i][k] == var)
+            {
+                cnt ++;
+            }
+        }
+
+        if(cnt > j / 2)
+        {
+            maj ++;
+        }
+    }
+
+    cout << maj << '\n' << secvmax;
+
+    return 0;
+}
